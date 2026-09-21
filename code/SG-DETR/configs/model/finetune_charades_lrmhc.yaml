@@ -1,0 +1,151 @@
+defaults:
+  - finetune_charades
+  - _self_
+
+# Charades-STA LR-MHC defaults. The three duration centers are initialized from
+# the training-set duration distribution rather than fixed semantic buckets.
+use_length_routed_cls: true
+soft_routing: true
+route_beta: 2.0
+route_prototype_init: [-1.46899, -1.11535, -0.68316]
+route_min_gap: 0.05
+learn_route_prototypes: true
+detach_route_width: true
+route_width_source: "output"
+use_absolute_duration_routing: false
+route_duration_centers: [5.0, 7.3, 10.0]
+route_alpha_init: 1.0
+route_expert_init_std: 0.0001
+route_expert_hidden_dim: 64
+use_route_alpha: true
+uniform_routing: false
+route_rescore_target: "both"
+use_route_gate: true
+route_gate_init: 0.1
+use_adaptive_router: true
+route_router_hidden_dim: 64
+route_router_scale: 1.0
+use_route_confidence_gate: false
+use_query_route_gate: false
+multiply_query_route_gate: false
+route_gate_hidden_dim: 64
+route_gate_use_decoder_features: true
+use_monotonic_route_gate: false
+route_gate_pivot_init: -3.1781
+route_gate_slope_init: 2.0
+route_gate_min_slope: 0.1
+route_gate_signal: "width"
+center_expert_residuals: true
+use_learnable_route_gain: true
+route_gain_init: 1.0
+use_expert_route_gain: false
+route_expert_gain_init: [1.0, 1.0, 1.0]
+use_query_length_prior: false
+query_length_prior_hidden_dim: 64
+query_length_prior_scale: 1.0
+query_length_prior_use_width_stats: false
+query_length_prior_absolute_width_stats: false
+query_length_prior_score_weighted_width_stats: false
+use_duration_safety_prior: false
+duration_safety_prior_hidden_dim: 64
+duration_safety_prior_dual_context: false
+use_short_safe_query_prior: false
+use_learned_query_prior_safety: false
+hard_query_prior_safety: false
+use_route_safety_adapter: false
+gate_query_prior_with_safety: true
+gate_safety_adapter: false
+query_prior_safety_use_context: false
+use_sample_route_gate: false
+sample_route_gate_hidden_dim: 64
+sample_route_gate_init: 0.95
+sample_route_gate_use_route_stats: false
+preserve_uniform_top1: false
+preserve_uniform_top1_margin: 0.05
+
+new_module_lr: 0.0003
+router_lr: null
+gate_lr: null
+freeze_base_epochs: 3
+joint_base_lr: 0.000001
+joint_new_module_lr: 0.00003
+keep_base_frozen_after_warmup: true
+calibration_module_token: null
+center_expert_gradients: false
+route_beta_start: null
+route_beta_end: null
+route_beta_anneal_fraction: 1.0
+
+detr_detector:
+  use_length_routed_cls: ${model.use_length_routed_cls}
+  soft_routing: ${model.soft_routing}
+  route_beta: ${model.route_beta}
+  route_prototype_init: ${model.route_prototype_init}
+  route_min_gap: ${model.route_min_gap}
+  learn_route_prototypes: ${model.learn_route_prototypes}
+  detach_route_width: ${model.detach_route_width}
+  route_width_source: ${model.route_width_source}
+  use_absolute_duration_routing: ${model.use_absolute_duration_routing}
+  route_duration_centers: ${model.route_duration_centers}
+  route_alpha_init: ${model.route_alpha_init}
+  route_expert_init_std: ${model.route_expert_init_std}
+  route_expert_hidden_dim: ${model.route_expert_hidden_dim}
+  use_route_alpha: ${model.use_route_alpha}
+  uniform_routing: ${model.uniform_routing}
+  route_rescore_target: ${model.route_rescore_target}
+  use_route_gate: ${model.use_route_gate}
+  route_gate_init: ${model.route_gate_init}
+  use_adaptive_router: ${model.use_adaptive_router}
+  route_router_hidden_dim: ${model.route_router_hidden_dim}
+  route_router_scale: ${model.route_router_scale}
+  use_route_confidence_gate: ${model.use_route_confidence_gate}
+  use_query_route_gate: ${model.use_query_route_gate}
+  multiply_query_route_gate: ${model.multiply_query_route_gate}
+  route_gate_hidden_dim: ${model.route_gate_hidden_dim}
+  route_gate_use_decoder_features: ${model.route_gate_use_decoder_features}
+  use_monotonic_route_gate: ${model.use_monotonic_route_gate}
+  route_gate_pivot_init: ${model.route_gate_pivot_init}
+  route_gate_slope_init: ${model.route_gate_slope_init}
+  route_gate_min_slope: ${model.route_gate_min_slope}
+  route_gate_signal: ${model.route_gate_signal}
+  center_expert_residuals: ${model.center_expert_residuals}
+  use_learnable_route_gain: ${model.use_learnable_route_gain}
+  route_gain_init: ${model.route_gain_init}
+  use_expert_route_gain: ${model.use_expert_route_gain}
+  route_expert_gain_init: ${model.route_expert_gain_init}
+  use_query_length_prior: ${model.use_query_length_prior}
+  query_length_prior_hidden_dim: ${model.query_length_prior_hidden_dim}
+  query_length_prior_scale: ${model.query_length_prior_scale}
+  query_length_prior_use_width_stats: ${model.query_length_prior_use_width_stats}
+  query_length_prior_absolute_width_stats: ${model.query_length_prior_absolute_width_stats}
+  query_length_prior_score_weighted_width_stats: ${model.query_length_prior_score_weighted_width_stats}
+  use_duration_safety_prior: ${model.use_duration_safety_prior}
+  duration_safety_prior_hidden_dim: ${model.duration_safety_prior_hidden_dim}
+  duration_safety_prior_dual_context: ${model.duration_safety_prior_dual_context}
+  use_short_safe_query_prior: ${model.use_short_safe_query_prior}
+  use_learned_query_prior_safety: ${model.use_learned_query_prior_safety}
+  hard_query_prior_safety: ${model.hard_query_prior_safety}
+  use_route_safety_adapter: ${model.use_route_safety_adapter}
+  gate_query_prior_with_safety: ${model.gate_query_prior_with_safety}
+  gate_safety_adapter: ${model.gate_safety_adapter}
+  query_prior_safety_use_context: ${model.query_prior_safety_use_context}
+  use_sample_route_gate: ${model.use_sample_route_gate}
+  sample_route_gate_hidden_dim: ${model.sample_route_gate_hidden_dim}
+  sample_route_gate_init: ${model.sample_route_gate_init}
+  sample_route_gate_use_route_stats: ${model.sample_route_gate_use_route_stats}
+  preserve_uniform_top1: ${model.preserve_uniform_top1}
+  preserve_uniform_top1_margin: ${model.preserve_uniform_top1_margin}
+
+runner:
+  new_module_lr: ${model.new_module_lr}
+  router_lr: ${model.router_lr}
+  gate_lr: ${model.gate_lr}
+  freeze_base_epochs: ${model.freeze_base_epochs}
+  joint_base_lr: ${model.joint_base_lr}
+  joint_new_module_lr: ${model.joint_new_module_lr}
+  keep_base_frozen_after_warmup: ${model.keep_base_frozen_after_warmup}
+  calibration_module_token: ${model.calibration_module_token}
+  center_expert_gradients: ${model.center_expert_gradients}
+  route_beta_start: ${model.route_beta_start}
+  route_beta_end: ${model.route_beta_end}
+  route_beta_anneal_fraction: ${model.route_beta_anneal_fraction}

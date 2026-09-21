@@ -1,0 +1,5 @@
+SG-DETR: 0a0ed6a70f3318d2bd5e7c93db30962f4fb3d85e (working tree snapshot has local changes)
+QD-DETR: 89b690cdb7998f2f733f14ad60a51ea99ab23082 (working tree snapshot has local changes)
+CG-DETR: b6343d112280297938d4e5263baeb18390428f12 (working tree snapshot has local changes)
+TR-DETR: 3913eeb46bb70034883f51bffba79b18d4aa8159 (working tree snapshot has local changes)
+UVCOM: d00e5c2aa118051aea8aabab2d8132e0d36cb800 (working tree snapshot has local changes)

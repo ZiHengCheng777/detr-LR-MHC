@@ -1,0 +1,103 @@
+use_focal: False
+gamma_focal: 1.5
+
+matcher:
+  _target_: src.losses.matcher.HungarianMatcher
+  cost_iou: 1
+  cost_class: 4
+  cost_span: 10
+  cost_giou: 1
+  cost_reference: 0
+  length_aware: False
+  length_thresholds: [0.15, 0.35]
+  soft_length_aware: False
+  prototype_classwise: False
+  cost_soft_length: 1.0
+  route_target_beta: 2.0
+  route_target_centers: [-3.1781, -2.1253, -1.3863]
+
+weight_dict:
+  loss_saliency: 1.0
+  # reg losses
+  loss_span: 10.0
+  loss_giou: 1.0
+  loss_label: 5.0
+  loss_quality: 1.0
+  loss_vfl: 0.0
+  # aux head losses
+  aux_loss_label: 2.0
+  aux_loss_span: 0.1
+  aux_loss_giou: 2.0
+  aux_loss_ctrness: 0.5
+  # other losses
+  loss_orthogonal: 1.0
+  loss_ms_align: 1.0
+  loss_momcls: 3.0
+  loss_multiple_spans: 0
+  center_l1_ref: 0
+  width_l1_ref: 0
+  # boundary discrimination loss
+  loss_boundary: 0.005
+  loss_route: 0.0
+  loss_expert_quality: 0.0
+  loss_expert_specialization: 0.0
+  loss_route_safety: 0.0
+  loss_route_gate_budget: 0.0
+  loss_route_gate_oracle: 0.0
+  loss_route_correction_polarity: 0.0
+  loss_query_length_prior: 0.0
+  loss_query_prior_safety: 0.0
+  loss_nonlong_route_safety: 0.0
+
+main_reg_losses:
+  _target_: src.losses.regression_losses.retrieval_losses.MainRegressionLosses
+  backgorund_weight: 0.1
+  use_focal: ${losses.use_focal}
+  gamma: ${losses.gamma_focal}
+  alpha: null
+  encoder_coef: 0.5
+  weights_loss_params:
+    gamma: 5
+    max_weight: 2
+  multiple_criterion: null
+  use_label_weights: False
+  use_span_weights: False
+  quality_scoring_mode: "positive" # If "positive" scoring_criterion will be considered only for matched segments, if "all" for all
+  center_offset_margin: 0.1
+  width_offset_margin: 0.15
+
+losses:
+  _target_: src.losses.losses.SetCriterion
+  matcher: ${losses.matcher}
+  weight_dict: ${losses.weight_dict}
+  main_reg_losses: ${losses.main_reg_losses}
+  top_k_positive_anchors: 12
+  saliency_margin: 0.15
+  contrastive_reducer: 1
+  denoise_reducer: 0.5
+  colab_ref_reducer: 0.5
+  one2one: True
+  target_repeat: 3
+  use_focal: ${losses.use_focal}
+  gamma: ${losses.gamma_focal}
+  local_saliency_loss_scale: 1.0
+  use_negative_losses: True
+  route_target_beta: 2.0
+  route_target_centers: [-3.1781, -2.1253, -1.3863]
+  expert_neutral_weight: 0.05
+  expert_residual_clip: 4.0
+  expert_ranking_margin: 0.2
+  expert_hard_negatives: 8
+  expert_route_sharpen: 1.0
+  expert_responsibility_source: "predicted"
+  mixed_ranking_weight: 0.0
+  expert_specialization_temperature: 0.5
+  route_safety_margin: 0.01
+  route_safety_width_power: 0.5
+  route_gate_budget: 0.2
+  route_gate_oracle_margin: 0.001
+  route_correction_margin: 0.05
+  query_prior_safety_threshold: 10.0
+  nonlong_route_safety_threshold: 30.0
+  query_prior_target_mode: "normalized"
+  query_prior_absolute_thresholds: [10.0, 30.0]

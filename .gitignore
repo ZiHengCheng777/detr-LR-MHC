@@ -1,0 +1,34 @@
+# macOS / editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Model weights: distributed via GitHub Releases, never committed
+*.ckpt
+*.pth
+*.pt
+*.safetensors
+
+# Training / evaluation outputs
+/code/*/results*/
+/code/*/logs/
+/code/*/outputs/
+/code/*/multirun/
+/code/*/lightning_logs/
+/code/*/*/results*/
+events.out.tfevents.*
+
+# Local data
+/data/
