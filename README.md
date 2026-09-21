@@ -2,13 +2,7 @@
 
 # Soft Length-Routed Multi-Head Correction for Query-Based Video Moment Localization
 
-**Ziheng Cheng**<sup>1,2</sup>, **Fengyin Huang**<sup>1,2,3</sup>, **Chenyang Wang**<sup>4</sup>, **Haihan Duan**<sup>1,2,*</sup>
-
-<sup>1</sup> Artificial Intelligence Research Institute, Shenzhen MSU-BIT University, Shenzhen, China<br>
-<sup>2</sup> Guangdong-Hong Kong-Macao Joint Laboratory for Emotion Intelligence and Pervasive Computing, Shenzhen, China<br>
-<sup>3</sup> School of Automation, Beijing Institute of Technology, Beijing, China<br>
-<sup>4</sup> Guangdong Laboratory of Artificial Intelligence and Digital Economy (SZ), Shenzhen, China<br>
-<sup>*</sup> Corresponding author
+**Ziheng Cheng**, **Fengyin Huang**, **Chenyang Wang**, **Haihan Duan**
 
 </div>
 
