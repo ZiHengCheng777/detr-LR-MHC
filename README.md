@@ -27,14 +27,17 @@ From the last decoder layer, Soft LR-MHC reads the query feature $`q_i`$, the pr
 
 1. **Distance-and-content soft length router.** The detached width is mapped to logit space, $`z_i = \mathrm{logit}(\mathrm{clip}(\mathrm{sg}(w_i)))`$. Three learnable ordered prototypes $`\mu_1 < \mu_2 < \mu_3`$ give a length-distance prior $`-\beta (z_i - \mu_k)^2`$, and a two-layer GELU MLP over $`[\mathrm{sg}(q_i); z_i]`$ adds a content correction. A softmax turns the sum into continuous routing weights $`\pi_{ik}`$ over short, mid and long experts.
 2. **Classification and span residual experts.** Each expert is a single linear map that outputs a scalar logit residual $`r_i^{(k)}`$ and a two-dimensional span residual $`\Delta b_i^{(k)}`$. Both are mixed with the same routing weights.
-3. **Reliability gating with gradient isolation.** A query-specific gate $`g_i = \sum_k \pi_{ik} \sigma(\alpha_k)`$ scales the mixed residuals. The corrected foreground logit and the corrected interval are
+3. **Reliability gating with gradient isolation.** A query-specific gate $`g_i = \sum_k \pi_{ik} \sigma(\alpha_k)`$ scales the mixed residuals, and a stop-gradient blocks the direct gradient path from the router to its inputs.
 
-   ```math
-   \hat{s}_i = s_i + \lambda_{\mathrm{cls}} \, g_i \, r_i, \qquad
-   \hat{b}_i = \sigma\big(\mathrm{logit}(\mathrm{clamp}(b_i)) + \lambda_{\mathrm{span}} \, \Delta b_i\big).
-   ```
+The corrected foreground logit and the corrected interval are
 
-   A stop-gradient blocks the direct gradient path from the router to its inputs.
+```math
+\hat{s}_i = s_i + \lambda_{\mathrm{cls}} \, g_i \, r_i
+```
+
+```math
+\hat{b}_i = \sigma\big(\mathrm{logit}(\mathrm{clamp}(b_i)) + \lambda_{\mathrm{span}} \, \Delta b_i\big)
+```
 
 The adapter adds less than 0.1% of the host model's parameters.
 
